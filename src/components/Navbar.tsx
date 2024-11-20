@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { FaUser, FaShoppingBag } from 'react-icons/fa';
 
 export default function Navbar() {
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount] = useState(0);
 
   return (
     <nav className="fixed w-full bg-gray-900 text-gray-200 py-4 px-8 flex justify-center items-center shadow-lg">
