@@ -25,7 +25,7 @@ export default function Navbar() {
         <Link href="/profile" className="text-orange-500 hover:text-white">
           <FaUser className="w-6 h-6" /> {/* Profile Icon */}
         </Link>
-        <Link href="/cart" className="relative text-orange-500 hover:text-white">
+        <Link href="/mycart" className="relative text-orange-500 hover:text-white">
           <FaShoppingBag className="w-6 h-6" /> {/* Cart Icon */}
           <span className="absolute -top-2 -right-2 bg-orange-500 text-xs rounded-full w-5 h-5 flex items-center justify-center">
             {cartCount}
