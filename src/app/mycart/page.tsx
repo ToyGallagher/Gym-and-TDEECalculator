@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import Image from 'next/image';
 export default function CartPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +70,7 @@ export default function CartPage() {
             key={product.id}
             className="p-4 bg-gray-900 shadow-md rounded-lg flex flex-col items-center"
           >
-            <img
+            <Image
               src={product.image}
               alt={product.title}
               className="w-full max-w-[150px] mb-4"

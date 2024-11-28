@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-
+import Image from 'next/image';
 export default function CartPage() {
   // ใช้ Suspense เพื่อรองรับการทำงานแบบ Client Side Rendering (CSR)
   return (
@@ -28,7 +28,7 @@ function CartContent() {
               key={item.id}
               className="p-4 bg-gray-900 shadow-md rounded-lg flex flex-col items-center"
             >
-              <img
+              <Image
                 src={item.image}
                 alt={item.title}
                 className="w-full max-w-[150px] mb-4"
