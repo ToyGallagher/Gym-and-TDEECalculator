@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
+
 export default function CartPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +62,6 @@ export default function CartPage() {
   }
 
   return (
-    
     <div className="p-6 bg-black min-h-screen items-center justify-center pt-20">
       <h1 className="text-3xl font-bold mb-6 text-center">Product List</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 ">
@@ -73,7 +73,9 @@ export default function CartPage() {
             <Image
               src={product.image}
               alt={product.title}
-              className="w-full max-w-[150px] mb-4"
+              width={150} // กำหนดความกว้าง
+              height={150} // กำหนดความสูง
+              className="mb-4"
             />
             <h2 className="text-lg font-semibold text-center">{product.title}</h2>
             <p className="text-white text-sm text-center mb-2">

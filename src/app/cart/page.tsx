@@ -29,10 +29,12 @@ function CartContent() {
               className="p-4 bg-gray-900 shadow-md rounded-lg flex flex-col items-center"
             >
               <Image
-                src={item.image}
-                alt={item.title}
-                className="w-full max-w-[150px] mb-4"
-              />
+              src={item.image}
+              alt={item.title}
+              width={150} // กำหนดความกว้าง
+              height={150} // กำหนดความสูง
+              className="mb-4"
+            />
               <h2 className="text-lg font-semibold text-center text-white">{item.title}</h2>
               <p className="text-white text-sm text-center mb-2">
                 {item.description.length > 50
