@@ -1,4 +1,5 @@
 // src/app/components/HeroSection.tsx
+import Link from 'next/link';
 import React from 'react';
 
 export default function HeroSection() {
@@ -8,9 +9,12 @@ export default function HeroSection() {
       <p className="text-lg text-center max-w-2xl mb-8">
         TRAINING WITH A WORLD CHAMPION
       </p>
-      <button className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
-        Get Started
-      </button>
+      <Link href="/tdee" >
+        <button className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+          Get Started (tdee)
+        </button>
+      </Link>
+    
     </div>
   );
 }

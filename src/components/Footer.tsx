@@ -2,8 +2,11 @@
 
 import React, { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext"; // AuthContext Hook
+import { saveToFirestore } from "../lib/firestoreHelpers"; // Firestore helper
 
 export default function Footer() {
+  const { user } = useAuth(); // Get logged-in user
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,41 +15,36 @@ export default function Footer() {
     message: "",
   });
 
-  // ฟังก์ชันจัดการการเปลี่ยนแปลงในฟอร์ม
+  const [error, setError] = useState<string | null>(null);
+
+  // Handle Input Change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // ฟังก์ชันสำหรับการส่งข้อมูล
+  // Handle Form Submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-  
+    if (!user) {
+      setError("You must be logged in to submit this form.");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:3000/#home", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (response.ok) {
-        console.log("Form submitted successfully!");
-      } else {
-        const errorResponse = await response.json();
-        console.error("Failed to submit form:", errorResponse);
-      }
-    } catch (error) {
-      console.error("Error during form submission:", error);
+      await saveToFirestore(formData, user.uid); // Save to Firestore
+      console.log("Form submitted successfully!");
+      setFormData({ firstName: "", lastName: "", email: "", subject: "", message: "" });
+      setError(null); // Clear error
+    } catch (err) {
+      console.error("Failed to save to Firestore:", err);
+      setError("Failed to submit the form. Please try again.");
     }
   };
 
   return (
     <footer className="bg-orange-500 text-black py-16 px-8">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-between">
-        {/* Contact Section */}
         <div className="w-full md:w-1/2 mb-8">
           <h2 className="text-3xl font-bold tracking-wider mb-4">CONTACT ME</h2>
           <p className="mb-4">WRITE OR CALL ME IF YOU HAVE MORE QUESTIONS</p>
@@ -59,9 +57,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Contact Form */}
         <div className="w-full md:w-1/2">
           <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            {error && (
+              <div className="col-span-2 text-red-500 text-sm mb-2">{error}</div>
+            )}
             <div className="col-span-1">
               <label className="block text-sm font-bold mb-2">First Name *</label>
               <input
@@ -123,11 +123,10 @@ export default function Footer() {
           </form>
         </div>
       </div>
-
-      {/* Bottom Text */}
       <div className="mt-16 text-center text-sm">
         <p>
-          © 2024 BY TOYGALLAGHER. Powered and secured by <span className="underline cursor-pointer">OASIS</span>
+          © 2024 BY TOYGALLAGHER. Powered and secured by{" "}
+          <span className="underline cursor-pointer">OASIS</span>
         </p>
       </div>
     </footer>
