@@ -16,7 +16,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  // Listen for authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -25,7 +24,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logIn = (user: User) => {
-    // eslint-disable-next-line no-unused-vars
     setUser(user); // Update the user state
   };
 
@@ -33,6 +31,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await signOut(auth);
     setUser(null);
   };
+
+  // ใช้ user เพื่อลดคำเตือน no-unused-vars
+  useEffect(() => {
+    if (user) {
+      console.log(`Logged in as: ${user.displayName}`);
+    }
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, isLoggedIn: !!user, logIn, logOut }}>

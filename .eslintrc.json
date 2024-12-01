@@ -1,9 +1,16 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
-    "no-unused-vars": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
     "react/react-in-jsx-scope": "off",
-    "next/next/no-img-element": "off", 
+    "next/next/no-img-element": "off",
     "@typescript-eslint/no-explicit-any": "off"
   }
 }
